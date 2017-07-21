@@ -25,40 +25,41 @@ console.log("JS running");
 function jobSearchResults() {
 
     //loop through the array of objects and create divs
-    for (var i = 0; i < jobsArr.length; i++) {
+    for (var i = 0; i < 10; i++) {
         //assign id and class to new divs
+        console.log("jobsearch called")
         var jobResults = $("<div>");
-        jobResults.attr("id", jobsArr[i].jobName);
+        jobResults.attr("id", jobsArr[i].jobTitle);
         jobResults.addClass("job-container");
               
-        var jobNameDisplay = $("<div>");
-        var JobDescripDisplay = $("<div>");
-        var jobLocDisplay = $("<div>");
-        var jobRateDisplay = $("<div>");
+        var jobTitleDisplay = $("<div>");
+        var companyDisplay = $("<div>");
+        var locationDisplay = $("<div>");
+        var urlDisplay = $("<div>");
 
-        jobNameDisplay.addClass("job-Name");
-        JobDescripDisplay.addClass("job-descrip");
-        jobLocDisplay.addClass("job-loc");
-        jobRateDisplay.addClass("job-rate");
+        jobTitleDisplay.addClass("job-Name");
+        companyDisplay.addClass("job-company");
+        locationDisplay.addClass("job-loc");
+        urlDisplay.addClass("job-url");
 
-        jobNameDisplay.text(jobsArr[i].jobName);
-        JobDescripDisplay.text(jobsArr[i].jobDescrip);
-        jobLocDisplay.text(jobsArr[i].jobLoc);
-        jobRateDisplay.text(jobsArr[i].jobRate);
+        jobTitleDisplay.text(jobsArr[i].jobTitle);
+        companyDisplay.text(jobsArr[i].company);
+        locationDisplay.text(jobsArr[i].location);
+        urlDisplay.text(jobsArr[i].detailUrl);
 
-        jobResults.append(jobNameDisplay);
-        jobResults.append(JobDescripDisplay);
-        jobResults.append(jobLocDisplay);
-        jobResults.append(jobRateDisplay);
+        jobResults.append(jobTitleDisplay);
+        jobResults.append(companyDisplay);
+        jobResults.append(locationDisplay);
+        jobResults.append(urlDisplay);
 
         //display objects in new divs
-        //jobResults.html(jobListings[i].jobName)
-        //jobResults.append(jobListings[i]this.jobLoc);
-        //jobResults.append(jobListings[i]this.jobDescrip);
+        //jobResults.html(jobListings[i].jobTitle)
+        //jobResults.append(jobListings[i]this.location);
+        //jobResults.append(jobListings[i]this.jobCompany);
         //jobResults.append(jobListings[i]this.jobRate);
 
         //display divs in html
-        $(".results").append(jobResults);
+        $("#results").append(jobResults);
     }
 };
 
@@ -68,30 +69,33 @@ var zip;
 var query;
 var submitBtn = $("#search-button");
 var jobsArr = [];
+var center = {lat: 35.2271, lng: -80.8431};
+var i;
 
 submitBtn.on("click", function(){
     console.log("Clicked submitBtn")
     event.preventDefault();
 
-    zip = $("zip-input").val();
-    query = $("search-input").val();
+    zip = $("#zip-input").val();
+    query = $("#search-input").val();
 
     var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
-
+    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: "GET"
     }).done(function(response){
         jobsArr = response.resultItemList;
+        i = 0
         console.log(jobsArr);
         jobSearchResults();
-        findCompanies();
+        var googleQueryTimer = setInterval(findCompanies,100);
     });
 });
 
 function initMap(){
     console.log("initMap called")
-    var center = {lat: 35.2271, lng: -80.8431};
+    center = {lat: 35.2271, lng: -80.8431};
     var mapDiv = $("#map");
     map = new google.maps.Map(mapDiv[0], {
         center: center,
@@ -99,22 +103,27 @@ function initMap(){
     });
 
     infowindow = new google.maps.InfoWindow();
+    
+    google.maps.event.addDomListener(window, 'resize', initMap);
+    google.maps.event.addDomListener(window, 'load', initMap);
 }
 
 function findCompanies(){
-     var service = new google.maps.places.PlacesService(map);
-
-    for (var i = 0; i <= 10; i++) {
+    var service = new google.maps.places.PlacesService(map);
+    if (i<=10){    
         var request = {
             location: center,
-            radius: '500',
+            radius: '5000',
             query: jobsArr[i].company
         };
         service.textSearch(request, callback);
+        i++;
     }
 }
 
 function callback(results, status) {
+    console.log(results);
+    console.log(status);
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         createMarker(results[0]);
     }
