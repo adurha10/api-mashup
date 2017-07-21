@@ -19,7 +19,7 @@ var jobListings = [
     jobDescrip: "Back-end Developer",
     jobRate: "5 Stars"
     }];
-
+console.log("JS running");
 //function that creates a new div for each object
 function jobSearchResults() {
 
@@ -69,6 +69,9 @@ var submitBtn = $("#search-button");
 var jobsArr = [];
 
 submitBtn.on("click", function(){
+    console.log("Clicked submitBtn")
+    event.preventDefault();
+
     zip = $("zip-input").val();
     query = $("search-input").val();
 
@@ -79,6 +82,7 @@ submitBtn.on("click", function(){
         method: "GET"
     }).done(function(response){
         jobsArr = response.resultItemList;
+        console.log(jobsArr);
         initMap();
     });
 });
@@ -86,8 +90,8 @@ submitBtn.on("click", function(){
 function initMap(){
     jobSearchResults();
     var center = {lat: 35.2271, lng: -80.8431};
-
-    map = new google.maps.Map($("#map"), {
+    var mapDiv = $("#map");
+    map = new google.maps.Map(mapDiv, {
         center: center,
         zoom:13
     });
