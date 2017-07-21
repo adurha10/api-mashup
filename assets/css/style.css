@@ -11,12 +11,11 @@
  }
 
  .navbar {
- 	margin-top: -25px;
+ 	margin-top: -30px;
  }
 
  .container-fluid {
  	background-color: #eeeeee;
- 	border: 3px solid #264d73;
  }
 
 .map {
@@ -44,10 +43,12 @@ footer {
 	height: 7%;
 	bottom: 0px;
 	width: 83%;
-	background-color: #666666;
+	background-color: #eeeeee;
 	text-align: center;
-	color: #ffffff;
+	color: #000000;
 	line-height: 150%;
+	border: 2px solid #264d73;
+	border-radius: 25px;
 }
 
 #jumbotron {
@@ -58,6 +59,14 @@ footer {
 #fg1 {
 	margin-right: 0px;
 	margin-left: 200px;
+}
+
+#search-input {
+	border: 1px solid #254d73;
+}
+
+#zip-input {
+	border: 1px solid #254d73;
 }
 
 #fg2 {
