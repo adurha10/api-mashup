@@ -1,3 +1,4 @@
+document.ready
 var jobListings = [
     { 
     jobName: "Company X",
@@ -83,21 +84,25 @@ submitBtn.on("click", function(){
     }).done(function(response){
         jobsArr = response.resultItemList;
         console.log(jobsArr);
-        initMap();
+        jobSearchResults();
+        findCompanies();
     });
 });
 
 function initMap(){
-    jobSearchResults();
+    console.log("initMap called")
     var center = {lat: 35.2271, lng: -80.8431};
     var mapDiv = $("#map");
-    map = new google.maps.Map(mapDiv, {
+    map = new google.maps.Map(mapDiv[0], {
         center: center,
         zoom:13
     });
 
     infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
+}
+
+function findCompanies(){
+     var service = new google.maps.places.PlacesService(map);
 
     for (var i = 0; i <= 10; i++) {
         var request = {
@@ -106,14 +111,14 @@ function initMap(){
             query: jobsArr[i].company
         };
         service.textSearch(request, callback);
-    };
-};
+    }
+}
 
 function callback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         createMarker(results[0]);
-    };
-};
+    }
+}
 
 function createMarker(place) {
     var placeLoc = place.geometry.location; 
