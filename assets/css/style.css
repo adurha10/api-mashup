@@ -26,6 +26,7 @@
 	min-height: 350px;
 	background-color: #eeeeee;
 	margin-left: 5px;
+	overflow-y: scroll;
 }
 
 #fg1 {
