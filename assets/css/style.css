@@ -1,76 +1,97 @@
  html,
  body {
  	height: 100%;
- 	background-color: #666666;
+ }
+
+ body {
+ 	background-color: #FFFFFF;
  }
 
  .jumbotron {
  	text-align: center;
  	background-color: #264d73;
  	color: #ffffff;
- }
-
- .navbar {
- 	margin-top: -30px;
- }
-
- .container-fluid {
- 	background-color: #eeeeee;
+ 	height: 200px;
  }
 
 .map {
-	border: 2px solid #264d73;
-	border-radius: 25px;
+	border-radius: 5px;
 	height: 350px;
-	padding: 10px;
 	background-color: #eeeeee;
-
 }
 
 .results {
-	border: 2px solid #264d73;
-	border-radius: 25px;
+	border-radius: 5px;
 	min-height: 350px;
-	padding: 10px;
 	background-color: #eeeeee;
-}
-
-footer {
-	position: fixed;
-	height: 7%;
-	bottom: 0px;
-	width: 83%;
-	background-color: #eeeeee;
-	text-align: center;
-	color: #000000;
-	line-height: 150%;
-	border: 2px solid #264d73;
-	border-radius: 25px;
-}
-
-#jumbotron {
-	width: 100%;
-	height: 200px;
 }
 
 #fg1 {
 	margin-right: 0px;
-	margin-left: 200px;
+	margin-left: 280px;
 }
 
 #search-input {
-	border: 1px solid #254d73;
+	border: 1px solid #606060;
 }
 
 #zip-input {
-	border: 1px solid #254d73;
+	border: 1px solid #606060;
 }
 
 #fg2 {
 	margin-right: 0px;
-	margin-left: 15px;
+	margin-left: 5px;
 }
 
 #search-button {
-	margin-left: 15px;
+	margin-left: 5px;
+	background-color: #606060;
+	color: #FFFFFF;
+	border: 1px solid #606060;
+}
+
+.jumbotron{
+  position: relative;
+  z-index:-101;
+  overflow: hidden;
+  margin-bottom: 5px;
+  height: 250px;
+}
+
+#video-background { 
+  position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -100;
+    width:100%;
+}
+
+h1 {
+	font-family: 'Special Elite', cursive;
+	opacity: 0.8;
+	margin-bottom: 40px;
+	margin-left: 20%;
+}
+
+p {
+	color: #606060;
+	font-family: 'Special Elite', cursive;
+	margin-top: 5px;
+	margin-right: 30%;
+}
+
+.job-Name {
+	color: #0000FF;
+	font-weight: bold;
+}
+
+.job-url {
+	padding-bottom: 15px;
+}
+
+.job-company {
+	font-weight: bold;
 }
