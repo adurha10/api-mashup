@@ -75,8 +75,7 @@ var i;
 submitBtn.on("click", function(){
     console.log("Clicked submitBtn")
     event.preventDefault();
-
-    zip = $("#zip-input").val();
+    
     query = $("#search-input").val();
 
     var queryURL = "https://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
@@ -110,30 +109,38 @@ function initMap(){
     var marker = new google.maps.Marker({
         map: map,
         icon: "assets/images/homeicon.png",
-        anchorPoint: new google.maps.Point(20, 20)
+        anchorPoint: new google.maps.Point(0, -32)
     });
 
+    var infowindow = new google.maps.InfoWindow();
     var infowindowContent = document.getElementById('infowindow-content');
+    console.log(infowindowContent);
+    console.log(infowindow);
+
     infowindow.setContent(infowindowContent);
 
     autocomplete.addListener('place_changed', function() {
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
+        console.log(place);
         if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
-            window.alert("No details available for input: '" + place.name + "'");
+            // window.alert("No details available for input: '" + place.name + "'");
             return;
         }
-
+        zip = place.address_components[8].long_name;
+        console.log(zip);
         // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
+            map.setZoom(11); // Why 11? Because it looks good.
         } else {
             map.setCenter(place.geometry.location);
-            map.setZoom(17);  // Why 17? Because it looks good.
+            map.setZoom(11); // Why 11? Because it looks good.
         }
+
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
@@ -152,7 +159,6 @@ function initMap(){
         infowindow.open(map, marker);
     });
     
-    infowindow = new google.maps.InfoWindow();
     
     google.maps.event.addDomListener(window, 'resize', initMap);
 }
