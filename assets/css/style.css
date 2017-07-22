@@ -18,12 +18,14 @@
 	border-radius: 5px;
 	height: 350px;
 	background-color: #eeeeee;
+	margin-left: -5px;
 }
 
 .results {
 	border-radius: 5px;
 	min-height: 350px;
 	background-color: #eeeeee;
+	margin-left: 5px;
 }
 
 #fg1 {
