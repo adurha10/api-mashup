@@ -3,6 +3,8 @@
 <head>
 	<!-- Normalize CSS from Meyerweb -->
 	<link rel="stylesheet" href="assets/css/reset.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
 	
 	<!-- BOOTSTRAP - Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,16 +18,25 @@
 	<title>API Mashup Project</title>
 </head>
 <body>
+
+		<div class="jumbotron">
+
+			<p>Get your head out of the clouds...</p>
+
+			  <h1>Find Your DREAM JOB</h1>
+			
+  <video id="video-background" preload muted autoplay loop>
+    <source src="assets/video/clouds.mp4" type="video/mp4">
+   
+  </video>
+
+  </div>
 	<!-- HTML for page layout goes here -->
 	<div class="container">
 	<!-- HTML for page layout goes here -->
-		<div class="jumbotron">
 
-			  <h1>Get.Job</h1>
-			 
-		</div>
 
-		<nav class="navbar navbar-default">
+		<nav class="navbar">
 
   			<div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -34,49 +45,33 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
       		<form class="navbar-form navbar-left">
 
-
-
         		<div class="form-group" id="fg1">
 
-					Job Type
-
-          			<input type="text" class="form-control" placeholder="Job Name" id="search-input">
-
+          			<input type="text" class="form-control" placeholder="Job Title" id="search-input">
 
         		</div>
 
-
-        	
-
         		<div class="form-group" id="fg2">
-
-        		Location
 
         			<input type="text" class="form-control" placeholder="Zip Code" id="zip-input">
 
         		</div> 
 
-        		<button type="submit" class="btn btn-primary" id="search-button">Search Job</button>
+        		<button type="submit" class="btn" id="search-button">Search Job</button>
 
       		</form>
-
 
   			</div><!-- /.container-fluid -->
 
 		</nav>
-
+		
 
 <div class="row" id="map-job-holder">
   <div class="col-xs-12 col-sm-3 col-md-6 map" id="map"></div>
   <div class="col-xs-12 col-sm-3 col-md-6 results" id="results"></div>
 </div>
 
-
-<footer>
-    <div class="footer navbar-fixed-bottom">
-      Copyright &copy; 2017 Rafael Ortiz
-    </div>
-  </footer>
+</div>
 
 	</div>
 
