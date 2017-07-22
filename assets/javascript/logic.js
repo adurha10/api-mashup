@@ -42,10 +42,10 @@ function jobSearchResults() {
         locationDisplay.addClass("job-loc");
         urlDisplay.addClass("job-url");
 
-        jobTitleDisplay.text(jobsArr[i].jobTitle);
-        companyDisplay.text(jobsArr[i].company);
+        jobTitleDisplay.html("<h4>" + jobsArr[i].jobTitle + "</h4>");
+        companyDisplay.html("<h4>" + jobsArr[i].company + "</h4>");
         locationDisplay.text(jobsArr[i].location);
-        urlDisplay.text(jobsArr[i].detailUrl);
+        urlDisplay.html("<a href='" + jobsArr[i].detailUrl + "' target='_blank'>" + jobsArr[i].detailUrl + "</a>");
 
         jobResults.append(jobTitleDisplay);
         jobResults.append(companyDisplay);
@@ -140,74 +140,15 @@ function createMarker(place) {
     }); 
 }
 
- // var map;
- //      var infowindow;
- //      var zip;
- //      var query;
- //      var submitBtn = document.getElementById('new-search');
- //      var jobsArr=[];
-
- //      function newSearch(){
-        
- //        zip = document.getElementById('zip').value;
- //        query = document.getElementById('query').value;
-        
- //        var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
- //        console.log(queryURL);
- //    $.ajax({
- //          url: queryURL,
- //          method: "GET"
- //      }).done(function(response) {
- //        jobsArr = response.resultItemList;
- //        console.log(jobsArr);
- //        initMap();
-          
- //      });
-
- //      };
-
- //      function initMap() {
- //                console.log("called initMap");
-
- //        var center = {lat: 35.2271, lng: -80.8431};
-
- //        map = new google.maps.Map(document.getElementById('map'), {
- //          center: center,
- //          zoom: 13
- //        });
-
- //        infowindow = new google.maps.InfoWindow();
- //        var service = new google.maps.places.PlacesService(map);
-        
- //        for (var i = 30; i >= 0; i--) {
-          
- //          var request = {
- //          location: center,
- //          radius: '500',
- //          query: jobsArr[i].company
- //        };
- //        console.log("r", request)
- //          service.textSearch(request, callback);
- //        }
- //      }
-
- //      function callback(results, status) {
- //        console.log("cb", results);
- //        console.log(status);
- //        if (status === google.maps.places.PlacesServiceStatus.OK) {
- //          createMarker(results[0]);
- //        }
- //      }
-
- //      function createMarker(place) {
- //        var placeLoc = place.geometry.location;
- //        var marker = new google.maps.Marker({
- //          map: map,
- //          position: place.geometry.location
- //        });
-
- //        google.maps.event.addListener(marker, 'click', function() {
- //          infowindow.setContent(place.name);
- //          infowindow.open(map, this);
- //        });
- //      }
+function createHome(place) {
+    var placeLoc = place.geometry.location; 
+    var marker = new google.maps.Marker({ 
+        map: map,
+        icon: "assets/images/homeicon.png"
+        position: place.geometry.location 
+    }); 
+    google.maps.event.addListener(marker, 'click', function(){ 
+        infowindow.setContent(place.name); 
+        infowindow.open(map, this); 
+    }); 
+}
