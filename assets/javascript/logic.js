@@ -42,10 +42,10 @@ function jobSearchResults() {
         locationDisplay.addClass("job-loc");
         urlDisplay.addClass("job-url");
 
-        jobTitleDisplay.text(jobsArr[i].jobTitle);
-        companyDisplay.text(jobsArr[i].company);
+        jobTitleDisplay.html("<h4>" + jobsArr[i].jobTitle + "</h4>");
+        companyDisplay.html("<h4>" + jobsArr[i].company + "</h4>");
         locationDisplay.text(jobsArr[i].location);
-        urlDisplay.text(jobsArr[i].detailUrl);
+        urlDisplay.html("<a href='" + jobsArr[i].detailUrl + "' target='_blank'>" + jobsArr[i].detailUrl + "</a>");
 
         jobResults.append(jobTitleDisplay);
         jobResults.append(companyDisplay);
