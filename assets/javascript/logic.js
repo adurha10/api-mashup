@@ -78,7 +78,7 @@ submitBtn.on("click", function(){
     
     query = $("#search-input").val();
 
-    var queryURL = "https://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
+    var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
     console.log(queryURL);
     $.ajax({
         url: queryURL,
@@ -168,7 +168,7 @@ function findCompanies(){
     if (i<=10){    
         var request = {
             location: center,
-            radius: '5000',
+            radius: '64373', // ~40mile radius
             query: jobsArr[i].company
         };
         service.textSearch(request, callback);
