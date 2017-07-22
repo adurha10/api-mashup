@@ -21,7 +21,7 @@
 
 		<div class="jumbotron">
 
-			  <h1>jobMapper</h1>
+			  <div id="header-title">jobMapper</div>
 			
   <video id="video-background" preload muted autoplay loop>
     <source src="assets/images/city.mp4" type="video/mp4">
@@ -41,23 +41,35 @@
 
    			
 <!-- Collect the nav links, forms, and other content for toggling -->
-      		<form class="navbar-form navbar-left">
 
-        		<div class="form-group" id="fg1">
+			<div class="row">
 
-          			<input type="text" class="form-control" placeholder="Job Title" id="search-input">
+				<div class="col-xs-0 col-sm-1 col-md-2">
+				</div>
 
-        		</div>
+			    <div class="col-xs-12 col-sm-4 col-md-3" id="nav-search">
+        		    <div class="form-group" id="fg1">
 
-        		<div class="form-group" id="fg2">
+          			    <input type="text" class="form-control" placeholder="Job Title" id="search-input">
 
-        			<input type="text" class="form-control" placeholder="Zip Code" id="zip-input">
+        		    </div>
+        	    </div>
+
+			    <div class="col-xs-12 col-sm-4 col-md-3" id="nav-zip">
+
+        		    <div class="form-group" id="fg2">
+
+        			    <input type="text" class="form-control" placeholder="Zip Code" id="zip-input">
+				    </div>
 
         		</div> 
 
-        		<button type="submit" class="btn" id="search-button">Search Job</button>
+			    <div class="col-xs-12 col-sm-2 col-md-2">
 
-      		</form>
+        			<button type="submit" class="btn" id="search-button">Search Job</button>
+
+			    </div>
+			</div>
 
   			</div><!-- /.container-fluid -->
 
@@ -65,6 +77,7 @@
 		
 
 <div class="row" id="map-job-holder">
+<<<<<<< HEAD
   <div class="col-xs-12 col-sm-3 col-md-6 map" id="map"></div>
   <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
@@ -72,6 +85,10 @@
       <span id="place-address"></span>
 </div>
   <div class="col-xs-12 col-sm-3 col-md-6 results" id="results"></div>
+=======
+  <div class="col-xs-12 col-sm-12 col-md-6 map" id="map"></div>
+  <div class="col-xs-12 col-sm-12 col-md-6 results" id="results"></div>
+>>>>>>> 3d5cc1af08fd8bc1cd0770f9c3fcedd6977acb52
 </div>
 
 </div>
