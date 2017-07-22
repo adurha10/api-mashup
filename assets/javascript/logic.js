@@ -79,7 +79,7 @@ submitBtn.on("click", function(){
     zip = $("#zip-input").val();
     query = $("#search-input").val();
 
-    var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
+    var queryURL = "https://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
     console.log(queryURL);
     $.ajax({
         url: queryURL,
@@ -105,7 +105,6 @@ function initMap(){
     infowindow = new google.maps.InfoWindow();
     
     google.maps.event.addDomListener(window, 'resize', initMap);
-    google.maps.event.addDomListener(window, 'load', initMap);
 }
 
 function findCompanies(){
