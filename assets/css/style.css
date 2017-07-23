@@ -95,3 +95,6 @@
 .job-company {
 	font-weight: bold;
 }
+#infowindow-content:empty {
+	display: none;
+}
