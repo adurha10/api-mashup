@@ -98,3 +98,6 @@
 #infowindow-content:empty {
 	display: none;
 }
+.marked {
+	background-color: rgba(52, 137, 223, 0.53)
+}
