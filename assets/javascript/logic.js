@@ -23,11 +23,12 @@ var jobListings = [
 console.log("JS running");
 //function that creates a new div for each object
 function jobSearchResults() {
+    console.log(jobsArr);
 
     //loop through the array of objects and create divs
+    $("#results").empty();
     for (var i = 0; i < 10; i++) {
         //assign id and class to new divs
-        console.log("jobsearch called")
         var jobResults = $("<div>");
         jobResults.attr("id", jobsArr[i].jobTitle);
         jobResults.addClass("job-container");
@@ -52,6 +53,22 @@ function jobSearchResults() {
         jobResults.append(locationDisplay);
         jobResults.append(urlDisplay);
 
+        if(jobsArr[i].markerPlaced){
+            jobResults.addClass("marked");
+
+            var commuteTime = $("<span>");
+            console.log(jobsArr[i]);
+            commuteTime.text(jobsArr[i].destTime.text);
+            var commuteDist = $("<span>");
+            commuteDist.text(jobsArr[i].destDist.text);
+
+            commuteDist.addClass("distance");
+            commuteTime.addClass("time")
+
+            jobResults.append(commuteTime);
+            jobResults.append(commuteDist)
+        }
+
         //display objects in new divs
         //jobResults.html(jobListings[i].jobTitle)
         //jobResults.append(jobListings[i]this.location);
@@ -70,33 +87,30 @@ var query;
 var submitBtn = $("#search-button");
 var jobsArr = [];
 var center = {lat: 35.2271, lng: -80.8431};
-var i;
+var increment;
 var home;
 var jobDestArr = [];
-var googleQueryTimer
+var googleQueryTimer;
+var markedJobs = [];
 
 submitBtn.on("click", function(){
-    console.log("Clicked submitBtn")
+    // console.log("Clicked submitBtn")
     event.preventDefault();
     
     query = $("#search-input").val();
 
     var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
-    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: "GET"
     }).done(function(response){
         jobsArr = response.resultItemList;
-        i = 0
-        console.log(jobsArr);
-        jobSearchResults();
+        increment = 0;
         googleQueryTimer = setInterval(findCompanies,100);
     });
 });
 
 function initMap(){
-    console.log("initMap called")
     center = {lat: 35.2271, lng: -80.8431};
     var mapDiv = $("#map");
     map = new google.maps.Map(mapDiv[0], {
@@ -105,9 +119,7 @@ function initMap(){
     });
 
     var input = document.getElementById('zip-input');
-    console.log(input);
     var autocomplete = new google.maps.places.Autocomplete(input);
-    console.log(autocomplete);
         autocomplete.bindTo('bounds', map);
     var marker = new google.maps.Marker({
         map: map,
@@ -116,18 +128,17 @@ function initMap(){
     });
 
     var infowindow = new google.maps.InfoWindow();
-    var infowindowContent = document.getElementById('infowindow-content');
-    console.log(infowindowContent);
-    console.log(infowindow);
+    // var infowindowContent = document.getElementById('infowindow-content');
+    // console.log(infowindowContent);
+    // console.log(infowindow);
 
-    infowindow.setContent(infowindowContent);
+    // infowindow.setContent(infowindowContent);
 
     autocomplete.addListener('place_changed', function() {
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
         home = place;
-        console.log(place);
         if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
@@ -135,7 +146,6 @@ function initMap(){
             return;
         }
         zip = place.address_components[8].long_name;
-        console.log(zip);
         // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
@@ -148,19 +158,19 @@ function initMap(){
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
-        var address = '';
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-            ].join(' ');
-        }
+        // var address = '';
+        // if (place.address_components) {
+        //     address = [
+        //         (place.address_components[0] && place.address_components[0].short_name || ''),
+        //         (place.address_components[1] && place.address_components[1].short_name || ''),
+        //         (place.address_components[2] && place.address_components[2].short_name || '')
+        //     ].join(' ');
+        // }
 
-        infowindowContent.children['place-icon'].src = place.icon;
-        infowindowContent.children['place-name'].textContent = place.name;
-        infowindowContent.children['place-address'].textContent = address;
-        infowindow.open(map, marker);
+        // infowindowContent.children['place-icon'].src = place.icon;
+        // infowindowContent.children['place-name'].textContent = place.name;
+        // infowindowContent.children['place-address'].textContent = address;
+        // infowindow.open(map, marker);
     });
     
     
@@ -169,14 +179,14 @@ function initMap(){
 
 function findCompanies(){
     var service = new google.maps.places.PlacesService(map);
-    if (i<=10){    
+    if (increment<=10){    
         var request = {
             location: center,
             radius: '64373', // ~40mile radius
-            query: jobsArr[i].company
+            query: jobsArr[increment].company
         };     
     service.textSearch(request, placeCallback);
-    i++;
+    increment++;
     } else {
             clearInterval(googleQueryTimer);
             commuteCalculator();
@@ -184,22 +194,20 @@ function findCompanies(){
 }
 
 function placeCallback(results, status) {
-    console.log(results);
-    console.log(status);
     if (status === google.maps.places.PlacesServiceStatus.OK) {
+        jobsArr[increment]["markerPlaced"] = true;
         createMarker(results[0]);
         jobDestArr.push(results[0].geometry.location);
+
     }
 }
 
 function createMarker(place) {
-    console.log(place);
     var placeLoc = place.geometry.location; 
     var marker = new google.maps.Marker({ 
         map: map, 
         position: place.geometry.location 
     }); 
-    console.log(home);
     // var commuteUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:" + home + "&destinations=place_id:"+ place.place_id + "&key=AIzaSyBde53Rvo9H70BiGhQ36rTPe-u1V4ySCPQ";
     // console.log(commuteUrl);
     // $.ajax({
@@ -216,8 +224,6 @@ function createMarker(place) {
 
 function commuteCalculator(){
 var origin1 = home.geometry.location;
-console.log(origin1);
-
 var service = new google.maps.DistanceMatrixService();
 service.getDistanceMatrix(
   {
@@ -236,7 +242,17 @@ function distanceCallback(response, status) {
     if (status == 'OK') {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
-        console.log(response);
+        var responseCounter = 0
+        for (var j = 0; j < 10; j++) {
+            if(jobsArr[j].markerPlaced){
+                jobsArr[j]["destTime"] = response.rows[0].elements[responseCounter].duration;
+                jobsArr[j]["destDist"] = response.rows[0].elements[responseCounter].distance;
+                responseCounter++;
+                console.log(jobsArr[j]);
+            }
+        }
+        console.log(jobsArr);
+        jobSearchResults();
         // for (var i = 0; i < jobDestArr.length; i++) {
         //   var results = response.rows[i].elements;
         //   for (var j = 0; j < results.length; j++) {
