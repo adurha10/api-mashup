@@ -71,6 +71,9 @@ var submitBtn = $("#search-button");
 var jobsArr = [];
 var center = {lat: 35.2271, lng: -80.8431};
 var i;
+var home;
+var jobDestArr = [];
+var googleQueryTimer
 
 submitBtn.on("click", function(){
     console.log("Clicked submitBtn")
@@ -88,7 +91,7 @@ submitBtn.on("click", function(){
         i = 0
         console.log(jobsArr);
         jobSearchResults();
-        var googleQueryTimer = setInterval(findCompanies,100);
+        googleQueryTimer = setInterval(findCompanies,100);
     });
 });
 
@@ -123,6 +126,7 @@ function initMap(){
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
+        home = place;
         console.log(place);
         if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
@@ -170,31 +174,81 @@ function findCompanies(){
             location: center,
             radius: '64373', // ~40mile radius
             query: jobsArr[i].company
-        };
-        service.textSearch(request, callback);
-        i++;
+        };     
+    service.textSearch(request, placeCallback);
+    i++;
+    } else {
+            clearInterval(googleQueryTimer);
+            commuteCalculator();
     }
 }
 
-function callback(results, status) {
+function placeCallback(results, status) {
     console.log(results);
     console.log(status);
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         createMarker(results[0]);
+        jobDestArr.push(results[0].geometry.location);
     }
 }
 
 function createMarker(place) {
+    console.log(place);
     var placeLoc = place.geometry.location; 
     var marker = new google.maps.Marker({ 
         map: map, 
         position: place.geometry.location 
     }); 
+    console.log(home);
+    // var commuteUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:" + home + "&destinations=place_id:"+ place.place_id + "&key=AIzaSyBde53Rvo9H70BiGhQ36rTPe-u1V4ySCPQ";
+    // console.log(commuteUrl);
+    // $.ajax({
+    //     url: commuteUrl,
+    //     method: "GET"
+    // }).done(function(response){
+    //     console.log(response);
+    // });
     google.maps.event.addListener(marker, 'click', function(){ 
         infowindow.setContent(place.name); 
         infowindow.open(map, this); 
     }); 
 }
+
+function commuteCalculator(){
+var origin1 = home.geometry.location;
+console.log(origin1);
+
+var service = new google.maps.DistanceMatrixService();
+service.getDistanceMatrix(
+  {
+    origins: [origin1],
+    destinations: jobDestArr,
+    travelMode: 'DRIVING',
+    // transitOptions: TransitOptions,
+    // drivingOptions: DrivingOptions,
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+    // avoidHighways: Boolean,
+    // avoidTolls: Boolean,
+  }, distanceCallback);
+}
+
+function distanceCallback(response, status) {
+    if (status == 'OK') {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+        console.log(response);
+        // for (var i = 0; i < jobDestArr.length; i++) {
+        //   var results = response.rows[i].elements;
+        //   for (var j = 0; j < results.length; j++) {
+        //     var element = results[j];
+        //     var distance = element.distance.text;
+        //     var duration = element.duration.text;
+        //     var from = origins[i];
+        //     var to = destinations[j];
+        //   }
+    }
+}
+
 
 // function createHome(place) {
 //     var placeLoc = place.geometry.location; 
