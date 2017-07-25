@@ -29,10 +29,6 @@
 	overflow-y: scroll;
 }
 
-#fg1 {
-	margin-right: 0px;
-}
-
 #nav-search, #nav-zip {
 	padding-right: .0625%;
 }
@@ -41,20 +37,14 @@
 	border: 1px solid #606060;
 }
 
-#zip-input {
+#address {
 	border: 1px solid #606060;
 }
 
-#fg2 {
-	margin-right: 0px;
-	margin-left: 5px;
-}
 
 #search-button {
-	margin-left: 5px;
 	background-color: #606060;
 	color: #FFFFFF;
-	border: 1px solid #606060;
 }
 
 .jumbotron{
@@ -100,4 +90,9 @@
 }
 .marked {
 	background-color: rgba(52, 137, 223, 0.53)
+}
+
+label.error{
+    display: block;
+    color: red;
 }

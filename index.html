@@ -18,59 +18,28 @@
 	<title>API Mashup Project</title>
 </head>
 <body>
-
 	<div class="jumbotron">
-
 		<div id="header-title">jobMapper</div>
-
-		<video id="video-background" preload muted autoplay loop>
-	  		<source src="assets/images/city.mp4" type="video/mp4">
-	   	</video>
-
+		<video id="video-background" preload muted autoplay loop><source src="assets/images/city.mp4" type="video/mp4"></video>
  	</div>
-	
 	<div class="container">
-
-	<nav class="navbar">
-
-  		<div class="container-fluid">
-
-			<div class="row">
-
-				<div class="col-xs-0 col-sm-1 col-md-2"></div>
-
-			    <div class="col-xs-12 col-sm-4 col-md-3" id="nav-search">
-
-	    		    <div class="form-group" id="fg1">
-
-	      			    <input type="text" class="form-control" placeholder="Job Title" id="search-input">
-
-	    		    </div>
-
-	    	    </div>
-
-			    <div class="col-xs-12 col-sm-4 col-md-3" id="nav-zip">
-
-	    		    <div class="form-group" id="fg2">
-
-	    			    <input type="text" class="form-control" placeholder="Zip Code" id="zip-input">
-
-				    </div>
-
-	    		</div> 
-
-			    <div class="col-xs-12 col-sm-2 col-md-2">
-
-	    			<button type="submit" class="btn" id="search-button">Search Job</button>
-
+		<div class="row">
+			<form class="form-group" id="search-form">
+			    <div class="col-xs-12 col-sm-5">
+			    	<label for="search-input">Job Title</label>
+		      		<input type="text" class="form-control" placeholder="Software Engineer" name="jobField" id="search-input">
+		      	</div>
+		      	<div class="col-xs-12 col-sm-5">
+		      		<label for="address">Home Address</label>
+		    		<input type="text" class="form-control" placeholder="123 Fake ST Charlotte NC, 28222" name="addressField" id="address">
 		    	</div>
-
-			</div>
-
-  		</div><!-- /.container-fluid -->
-
-	</nav>
-		
+		    	<div class="col-xs-12 col-sm-2">
+		      		<label for="search-button">Map Jobs</label><br>
+			    	<button type="submit" class="btn" id="search-button">Submit</button>
+			    </div>
+			    <div id="error-container"></div>
+			</form>
+		</div>
 
 <div class="row" id="map-job-holder">
 
