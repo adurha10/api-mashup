@@ -238,7 +238,7 @@ submitBtn.on("click", function(){
 
 function findCompanies(){
     var service = new google.maps.places.PlacesService(map);
-    if (incrementPlacesQuery<=10){    
+    if (incrementPlacesQuery<10){    
         var request = {
             location: home.geometry.location,
             radius: '64373', // ~40mile radius
@@ -311,13 +311,17 @@ function distanceCallback(response, status) {
         var destinations = response.destinationAddresses;
         var responseCounter = 0
         for (var k = 0; k < jobsArr.length; k++) {
+            debugger;
             if(jobsArr[k].markerPlaced && response.rows[0].elements[responseCounter].distance.value < 64000){
+                debugger;
                 console.log("jobsArr index of: " + k);
                 console.log(jobsArr[k]);
                 console.log(responseCounter);
                 console.log(response.rows[0].elements[responseCounter].duration);
                 jobsArr[k]["destTime"] = response.rows[0].elements[responseCounter].duration;
                 jobsArr[k]["destDist"] = response.rows[0].elements[responseCounter].distance;
+                responseCounter++;
+            } else if (jobsArr[k].markerPlaced){
                 responseCounter++;
             }
         }
