@@ -99,7 +99,7 @@ submitBtn.on("click", function(){
     
     query = $("#search-input").val();
 
-    var queryURL = "https://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
+    var queryURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?sort=1&sd=d&city=" + zip + "&text=" + query;
     $.ajax({
         url: queryURL,
         method: "GET"
