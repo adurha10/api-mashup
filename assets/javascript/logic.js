@@ -148,7 +148,7 @@ function jobSearchResults() {
     for (var i = 0; i < 10; i++) {
         
         // check for https and if not clean up URL to make it a https link
-        if (jobsArr.detailUrl.slice(0, 5) === "http:"){
+        if (jobsArr[i].detailUrl.slice(0, 5) === "http:"){
             jobsArr[i].detailUrl = jobsArr[i].detailUrl.slice(4);
             jobsArr[i].detailUrl = "https" + jobsArr[i].detailUrl;
         }
