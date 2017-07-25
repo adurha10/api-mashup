@@ -18,10 +18,12 @@
 	<title>API Mashup Project</title>
 </head>
 <body>
+	
 	<div class="jumbotron">
 		<div id="header-title">jobMapper</div>
 		<video id="video-background" preload muted autoplay loop><source src="assets/images/city.mp4" type="video/mp4"></video>
  	</div>
+	
 	<div class="container">
 		<div class="row">
 			<form class="form-group" id="search-form">
@@ -42,42 +44,33 @@
 		</div>
 		<br>
 
-<div class="row" id="map-job-holder">
-
-	<div class="col-xs-12 col-sm-3 col-md-6 map" id="map"></div>
-
-	<div class="col-xs-12 col-sm-3 col-md-6 results" id="results"></div>
-
-</div>
-
-</div>
-
-</div>
-
-
-
+		<div class="row" id="map-job-holder">
+			<div class="col-xs-12 col-sm-3 col-md-6 map" id="map"></div>
+			<div class="col-xs-12 col-sm-3 col-md-6 results" id="results"></div>
+		</div>
+	</div>
+	
 	<!-- Javascript after all HTML elements so document is ready -->
 	
 	<!-- jQuery CDN -->
-<script
-	src="https://code.jquery.com/jquery-3.2.1.js"
-	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-	crossorigin="anonymous">
-</script>
-	
-<!-- jQuery form validation-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>	
+	<script
+		src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous">
+	</script>
+		
+	<!-- jQuery form validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>	
 
-<!-- aditional-methods.js for form validation-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.js"></script>	
+	<!-- aditional-methods.js for form validation-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.js"></script>	
 
-<!-- BOOTSTRAP - Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- BOOTSTRAP - Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- Link to Project Javascript file with AJAX calls -->
-<script src="assets/javascript/logic.js"></script>
+	<!-- Link to Project Javascript file with AJAX calls -->
+	<script src="assets/javascript/logic.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrZ87yMdT4iRV1_SYXWHbI0a7H3PI_Vt8&libraries=places&callback=initMap" async defer></script>
-
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrZ87yMdT4iRV1_SYXWHbI0a7H3PI_Vt8&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>

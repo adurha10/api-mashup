@@ -146,10 +146,12 @@ function jobSearchResults() {
     $("#results").empty();
     //loop through the array of objects and create divs
     for (var i = 0; i < 10; i++) {
-        // clean up URL to make it a https link
-        jobsArr[i].detailUrl = jobsArr[i].detailUrl.slice(4);
-        jobsArr[i].detailUrl = "https" + jobsArr[i].detailUrl;
-
+        
+        // check for https and if not clean up URL to make it a https link
+        if (jobsArr.detailUrl.slice(0, 5) === "http:"){
+            jobsArr[i].detailUrl = jobsArr[i].detailUrl.slice(4);
+            jobsArr[i].detailUrl = "https" + jobsArr[i].detailUrl;
+        }
         //assign id and class to new divs
         var jobResults = $("<div>");
         jobResults.attr("id", jobsArr[i].jobTitle);
