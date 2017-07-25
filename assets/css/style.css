@@ -96,3 +96,18 @@ label.error{
     display: block;
     color: red;
 }
+
+#map-job-holder {
+	margin-bottom: 20px;
+}
+
+.time {
+	margin-right: 5px;
+}
+
+@media only screen and (max-width: 1000px) {
+    #map {
+        margin-bottom: 10px;
+        overflow: visible;
+    }
+}
