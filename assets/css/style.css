@@ -96,3 +96,7 @@ label.error{
     display: block;
     color: red;
 }
+
+#map-job-holder {
+	margin-bottom: 20px;
+}
