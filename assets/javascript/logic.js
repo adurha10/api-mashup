@@ -139,23 +139,41 @@ function initMap(){
     // infowindow.setContent(infowindowContent);
 
     autocomplete.addListener('place_changed', function() {
+        
         infowindow.close();
         marker.setVisible(false);
+        service = new google.maps.places.PlacesService(map);
         var place = autocomplete.getPlace();
-        home = place;
-        if (!home.geometry) {
+
+          if (!place.geometry) {
+
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
-            // window.alert("No details available for input: '" + place.name + "'");
+            window.alert("No details available for input: '" + place.name + "'");
             return;
+
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+        home = place;
+        debugger;
+        for (var i = 0; i < home.address_components.length; i++) {
+            for (var j = 0; j < home.address_components[i].types.length; j++) {
+                if (home.address_components[i].types[j] === "postal_code"){
+                    zip = home.address_components[i].long_name;
+                }
+            }
+            home.address_components[i].types
         }
-        zip = home.address_components[8].long_name;
-        // If the place has a geometry, then present it on a map.
-        if (home.geometry) {
-            map.fitBounds(home.geometry.viewport);
-            map.setZoom(11); // Why 11? Because it looks good.
-            map.setCenter(home.geometry.location);
-        } 
+
 
         marker.setPosition(home.geometry.location);
         marker.setVisible(true);
