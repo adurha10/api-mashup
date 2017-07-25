@@ -105,6 +105,10 @@ submitBtn.on("click", function(){
         method: "GET"
     }).done(function(response){
         jobsArr = response.resultItemList;
+        for (var i = 0; i < jobsArr.length; i++) {
+            jobsArr[i].detailUrl = jobsArr[i].detailUrl.slice(4);
+            jobsArr[i].detailUrl = "https" + jobsArr[i].detailUrl;
+        }
         increment = 0;
         googleQueryTimer = setInterval(findCompanies,100);
     });
@@ -139,23 +143,21 @@ function initMap(){
         marker.setVisible(false);
         var place = autocomplete.getPlace();
         home = place;
-        if (!place.geometry) {
+        if (!home.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
             // window.alert("No details available for input: '" + place.name + "'");
             return;
         }
-        zip = place.address_components[8].long_name;
+        zip = home.address_components[8].long_name;
         // If the place has a geometry, then present it on a map.
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
+        if (home.geometry) {
+            map.fitBounds(home.geometry.viewport);
             map.setZoom(11); // Why 11? Because it looks good.
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(11); // Why 11? Because it looks good.
-        }
+            map.setCenter(home.geometry.location);
+        } 
 
-        marker.setPosition(place.geometry.location);
+        marker.setPosition(home.geometry.location);
         marker.setVisible(true);
 
         // var address = '';
@@ -181,7 +183,7 @@ function findCompanies(){
     var service = new google.maps.places.PlacesService(map);
     if (increment<=10){    
         var request = {
-            location: center,
+            location: home.geometry.location,
             radius: '64373', // ~40mile radius
             query: jobsArr[increment].company
         };     
