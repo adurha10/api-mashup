@@ -311,7 +311,7 @@ function distanceCallback(response, status) {
         var destinations = response.destinationAddresses;
         var responseCounter = 0
         for (var k = 0; k < jobsArr.length; k++) {
-            if(jobsArr[k].markerPlaced && response.rows[0].elements[responseCounter].distance.value < 64000){
+            if(jobsArr[k].markerPlaced && responseCounter <= response.rows[0].elements.length && response.rows[0].elements[responseCounter].distance.value < 64000){
                 console.log("jobsArr index of: " + k);
                 console.log(jobsArr[k]);
                 console.log(responseCounter);
